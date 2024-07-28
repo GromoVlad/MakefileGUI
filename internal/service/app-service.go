@@ -162,22 +162,21 @@ func getButtonBox(label *widget.Label, app fyne.App) *fyne.Container {
 
 func createPasswordButton(app fyne.App) *container.AppTabs {
 	dialogInfo := widget.NewButton("Пароль/Логин", func() {
-		readFile2, _ := os.Open("./password.txt")
-		readFile2Data, _ := io.ReadAll(readFile2)
-		secondWindow := app.NewWindow("Login and Password")
+		readFile, _ := os.Open("./password.txt")
+		text, _ := io.ReadAll(readFile)
+		window := app.NewWindow("Login and Password")
 		loginAndPassword := widget.NewMultiLineEntry()
-		loginAndPassword.Text = string(readFile2Data)
-		secondWindow.SetContent(loginAndPassword)
-		secondWindow.Resize(fyne.Size{Width: 600, Height: 600})
-		secondWindow.Show()
+		loginAndPassword.Text = string(text)
+		window.SetContent(loginAndPassword)
+		window.Resize(fyne.Size{Width: 600, Height: 600})
+		window.Show()
+		err := readFile.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
 	})
 
-	containerDialogBox := container.NewVBox()
-	containerDialogBox.Add(dialogInfo)
-
-	return container.NewAppTabs(
-		container.NewTabItem("Passwords", containerDialogBox),
-	)
+	return container.NewAppTabs(container.NewTabItem("Passwords", container.NewVBox(dialogInfo)))
 }
 
 func getTextBox() *fyne.Container {

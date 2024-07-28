@@ -4,16 +4,16 @@
 
 что упрощает процесс запуска команд.
 
-Сгенерировать приложение на Ubuntu с иконкой:
+Сгенерировать приложение на Linux с иконкой:
 
     ~/go/bin/fyne package -os linux -icon icon.png
 
-Затем в созданном приложении пройти по пути go_gui/usr/local/bin и создать там 4 файла:
+Затем в созданном приложении пройти по пути go_gui/usr/local/bin и создать там 3 файла:
 - Makefile
 - password.txt
 - group.txt
 
-В Makefile вы указываете основные команды, но с префиксами и постфиксами, например:
+В Makefile вы указываете основные команды, но с префиксами [START] и постфиксами [END], например:
 
 MyGroupStart_gui:
 
@@ -28,3 +28,5 @@ MyGroupStart_gui:
 в данной ситуации это **MyGroup** в строке **MyGroupStart_gui**.
 
 Затем нужно **MyGroup** вынести в файл **group.txt**
+
+Примеры записей можно найти в файлах: Makefile, password.txt, group.txt
